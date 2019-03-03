@@ -51,7 +51,7 @@ def z_pos_move(output_file):
     output_file.write('G01 Z -1.0 F2000\r\n')
 
 def layer_move_to_neg_y(output_file):
-    for i in range(NUM_OF_Y-1):
+    for i in range(NUM_OF_Y):
         if((i % 2) == 0):
             for j in range(NUM_OF_X-1):
                 x_pos_move(output_file)
@@ -59,14 +59,15 @@ def layer_move_to_neg_y(output_file):
             for j in range(NUM_OF_X-1):
                 x_neg_move(output_file)
 
-        y_neg_move(output_file)
+        if(i != NUM_OF_Y -1):
+            y_neg_move(output_file)
 
 # Reverse move for the upper function
 # First direction in X-axis is determined as follows.
 # NUM_OF_Y == even number -> to positive X
 # NUM_OF_Y == odd number -> to negative Y
 def layer_move_to_pos_y(output_file):
-    for i in range(NUM_OF_Y-1):
+    for i in range(NUM_OF_Y):
         iterator = NUM_OF_Y - 2 - i # NUM_OF_Y -2 ... 0
         if((iterator % 2) == 0):
             for j in range(NUM_OF_X-1):
@@ -75,7 +76,8 @@ def layer_move_to_pos_y(output_file):
             for j in range(NUM_OF_X-1):
                 x_neg_move(output_file)
 
-        y_pos_move(output_file)
+        if(i != NUM_OF_Y - 1):
+            y_pos_move(output_file)
 
 # Begin writing code
 init_move(output_file)
